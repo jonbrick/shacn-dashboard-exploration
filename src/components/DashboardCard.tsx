@@ -8,7 +8,7 @@ interface DashboardCardProps {
 export function DashboardCard({ title, table }: DashboardCardProps) {
   return (
     <Card className="max-w-4xl">
-      <CardHeader>
+      <CardHeader className="pb-4">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>{table}</CardContent>

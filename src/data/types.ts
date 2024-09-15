@@ -1,5 +1,3 @@
-// data/types.ts
-
 export interface Account {
   accountID: string;
   accountName: string;

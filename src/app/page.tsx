@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import data from "@/data/data.json";
 import { Data } from "@/data/types";
 import { AccountCard } from "@/components/AccountCard";

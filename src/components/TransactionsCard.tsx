@@ -6,7 +6,7 @@ interface TransactionCardProps {
   transactions: Transaction[];
 }
 
-export function TransactionCard({ transactions }: TransactionCardProps) {
+export function TransactionsCard({ transactions }: TransactionCardProps) {
   const columns = [
     { header: "Transaction ID", accessorKey: "transactionID" },
     { header: "Ref ID", accessorKey: "refID" },

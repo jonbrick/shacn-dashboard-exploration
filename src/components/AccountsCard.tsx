@@ -6,7 +6,7 @@ interface AccountCardProps {
   accounts: Account[];
 }
 
-export function AccountCard({ accounts }: AccountCardProps) {
+export function AccountsCard({ accounts }: AccountCardProps) {
   const columns = [
     { header: "Account Name", accessorKey: "accountName" },
     { header: "Account Type", accessorKey: "accountType" },

@@ -1,7 +1,7 @@
 import data from "@/data/data.json";
 import { Data } from "@/data/types";
-import { AccountCard } from "@/components/AccountCard";
-import { TransactionCard } from "@/components/TransactionsCard";
+import { AccountsCard } from "@/components/AccountsCard";
+import { TransactionsCard } from "@/components/TransactionsCard";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export default function Home() {
@@ -9,8 +9,8 @@ export default function Home() {
 
   return (
     <DashboardLayout>
-      <AccountCard accounts={appData.accounts} />
-      <TransactionCard transactions={appData.transactions} />
+      <AccountsCard accounts={appData.accounts} />
+      <TransactionsCard transactions={appData.transactions} />
     </DashboardLayout>
   );
 }

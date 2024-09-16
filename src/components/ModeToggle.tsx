@@ -1,7 +1,8 @@
 "use client";
 
-import { Moon, Sun, Monitor } from "lucide-react"; // Monitor for system mode
+import { Moon, Sun, Monitor } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,27 +12,34 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ModeToggle() {
-  const { theme = "system", setTheme } = useTheme(); // Default to "system"
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Render a placeholder button if not mounted
+  if (!mounted) {
+    return (
+      <Button variant="outline" size="icon">
+        <Monitor className="h-[1.2rem] w-[1.2rem]" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    );
+  }
+
+  console.log("Current theme:", theme);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <Sun
-            className={`h-[1.2rem] w-[1.2rem] transition-all ${
-              theme === "light" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-            }`}
-          />
-          <Moon
-            className={`absolute h-[1.2rem] w-[1.2rem] transition-all ${
-              theme === "dark" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-            }`}
-          />
-          <Monitor
-            className={`absolute h-[1.2rem] w-[1.2rem] transition-all ${
-              theme === "system" ? "rotate-0 scale-100" : "rotate-90 scale-0"
-            }`}
-          />
+          {theme === "light" && <Sun className="h-[1.2rem] w-[1.2rem]" />}
+          {theme === "dark" && <Moon className="h-[1.2rem] w-[1.2rem]" />}
+          {(theme === "system" || !theme) && (
+            <Monitor className="h-[1.2rem] w-[1.2rem]" />
+          )}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

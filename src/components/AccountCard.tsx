@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Account } from "@/data/types";
 import { DashboardCard } from "./DashboardCard";
 import { DashboardTable } from "./DashboardTable";
@@ -34,13 +33,5 @@ export function AccountCard({ accounts }: AccountCardProps) {
     />
   );
 
-  const footer = <Button className="ml-auto">View All Accounts</Button>;
-
-  return (
-    <DashboardCard
-      title="Accounts Overview"
-      content={content}
-      footer={footer}
-    />
-  );
+  return <DashboardCard title="Accounts Overview" content={content} />;
 }

@@ -32,7 +32,7 @@ export function DashboardTable<T>({
   const totalRowCount = totalRows || data.length;
 
   return (
-    <div>
+    <div className="mb-4">
       <Table>
         <TableHeader>
           <TableRow>
@@ -55,7 +55,7 @@ export function DashboardTable<T>({
           ))}
         </TableBody>
       </Table>
-      <div className="text-sm text-gray-500 mt-6 -mb-8">
+      <div className="text-sm text-gray-500 mt-4">
         Showing {displayedRows} of {totalRowCount} rows
       </div>
     </div>

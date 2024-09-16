@@ -1,54 +1,100 @@
 "use client";
 
-import React, { useState } from "react";
-import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core";
+import React, { useState, useCallback, useEffect } from "react";
+import {
+  DndContext,
+  closestCenter,
+  DragEndEvent,
+  DragStartEvent,
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { DraggableCard } from "./DraggableCard";
+import { DashboardGrid } from "./DashboardGrid";
+
+interface DashboardItem {
+  id: string;
+  title: string;
+  component: React.ReactNode;
+}
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState(React.Children.toArray(children));
+  const [items, setItems] = useState<DashboardItem[]>(
+    React.Children.toArray(children).map((child, index) => ({
+      id: `item-${index}`,
+      title:
+        React.isValidElement(child) && child.props.title
+          ? child.props.title
+          : `Item ${index + 1}`,
+      component: child,
+    }))
+  );
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  useEffect(() => {
+    console.log(
+      "%c📊 Initial Dashboard Layout:",
+      "color: #4CAF50; font-weight: bold; font-size: 16px;"
+    );
+    items.forEach((item, index) => {
+      console.log(`${index + 1}. ${item.title} (ID: ${item.id})`);
+    });
+  }, []);
+
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const { active } = event;
+      const draggedItem = items.find((item) => item.id === active.id);
+      if (draggedItem) {
+        const currentPosition = items.indexOf(draggedItem) + 1;
+        console.log(
+          `%c🔼 Picked up: ${draggedItem.title}`,
+          "color: #2196F3; font-weight: bold;"
+        );
+        console.log(`   Current position: ${currentPosition}`);
+      }
+    },
+    [items]
+  );
+
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.findIndex(
-          (item) => React.isValidElement(item) && item.key === active.id
+
+    if (active && over && active.id !== over.id) {
+      setItems((currentItems) => {
+        const oldIndex = currentItems.findIndex(
+          (item) => item.id === active.id
         );
-        const newIndex = items.findIndex(
-          (item) => React.isValidElement(item) && item.key === over.id
+        const newIndex = currentItems.findIndex((item) => item.id === over.id);
+
+        const movedItem = currentItems[oldIndex];
+        console.log(
+          `%c🔽 Put down: ${movedItem.title}`,
+          "color: #FF9800; font-weight: bold;"
         );
-        return arrayMove(items, oldIndex, newIndex);
+        console.log(`   New position: ${newIndex + 1}`);
+
+        return arrayMove(currentItems, oldIndex, newIndex);
       });
     }
-  };
+  }, []);
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext
-        items={items
-          .map((item) =>
-            React.isValidElement(item) && item.key ? item.key : ""
-          )
-          .filter(Boolean)}
-        strategy={verticalListSortingStrategy}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          {items.map((child) => {
-            if (React.isValidElement(child) && child.key) {
-              return (
-                <DraggableCard key={child.key} id={child.key}>
-                  {child}
-                </DraggableCard>
-              );
-            }
-            return null;
-          })}
-        </div>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        <DashboardGrid>
+          {items.map((item) => (
+            <DraggableCard key={item.id} id={item.id}>
+              {item.component}
+            </DraggableCard>
+          ))}
+        </DashboardGrid>
       </SortableContext>
     </DndContext>
   );

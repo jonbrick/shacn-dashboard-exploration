@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -16,10 +18,10 @@ export function DashboardCard({ title, content, footer }: DashboardCardProps) {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-lg font-semibold">{title}</CardTitle>
       </CardHeader>
       <CardContent className="pb-2">{content}</CardContent>
-      {footer && <CardFooter>{footer}</CardFooter>}
+      {footer && <CardFooter className="pt-2">{footer}</CardFooter>}
     </Card>
   );
 }

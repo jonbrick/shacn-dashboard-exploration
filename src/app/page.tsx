@@ -16,8 +16,8 @@ export default function Home() {
       <UsersCard users={appData.users} />
       <PendingApprovalsCard
         transactions={appData.transactions}
-        accounts={appData.accounts || []} // Ensure accountsData is valid
-        thirdParties={appData.thirdParties || []} // Ensure thirdPartiesData is valid
+        accounts={appData.accounts || []}
+        thirdParties={appData.thirdParties || []}
       />
     </DashboardLayout>
   );

@@ -14,7 +14,7 @@ interface DashboardCardProps {
 
 export function DashboardCard({ title, content, footer }: DashboardCardProps) {
   return (
-    <Card className="max-w-4xl">
+    <Card>
       <CardHeader className="pb-2">
         <CardTitle>{title}</CardTitle>
       </CardHeader>

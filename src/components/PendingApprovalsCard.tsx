@@ -3,14 +3,12 @@ import { DashboardCard } from "./DashboardCard";
 import { DashboardTable } from "./DashboardTable";
 import { Button } from "@/components/ui/button";
 
-// Define the props interface
 interface PendingApprovalsCardProps {
   transactions: Transaction[];
   accounts: Account[];
   thirdParties: ThirdParty[];
 }
 
-// Function to look up Account or Third Party by GUID
 function getAccountOrThirdPartyName(
   guid: string,
   accounts: Account[],
@@ -23,7 +21,6 @@ function getAccountOrThirdPartyName(
   return thirdParty ? thirdParty.thirdPartyName : "Unknown";
 }
 
-// Function to sort transactions by the latest status timestamp (most recent first)
 function sortTransactionsByDate(transactions: Transaction[]): Transaction[] {
   return transactions.sort((a, b) => {
     const aDate = new Date(
@@ -32,11 +29,10 @@ function sortTransactionsByDate(transactions: Transaction[]): Transaction[] {
     const bDate = new Date(
       b.statusHistory[b.statusHistory.length - 1].timestamp
     );
-    return bDate.getTime() - aDate.getTime(); // Sort descending by date
+    return bDate.getTime() - aDate.getTime();
   });
 }
 
-// Function to filter for only "Pending Approval" transactions
 function filterPendingTransactions(transactions: Transaction[]): Transaction[] {
   return transactions.filter(
     (transaction) =>
@@ -50,18 +46,13 @@ export function PendingApprovalsCard({
   accounts = [],
   thirdParties = [],
 }: PendingApprovalsCardProps) {
-  // Get all pending transactions
   const pendingTransactions = filterPendingTransactions(transactions);
-
-  // Sort pending transactions by date
   const sortedTransactions = sortTransactionsByDate(pendingTransactions);
-
-  // Show only the first 5 sorted pending transactions
   const visibleTransactions = sortedTransactions.slice(0, 5);
 
   const columns = [
     {
-      header: "Date", // Date as the first column
+      header: "Date",
       cell: (transaction: Transaction) => {
         const latestStatus =
           transaction.statusHistory[transaction.statusHistory.length - 1];
@@ -96,7 +87,7 @@ export function PendingApprovalsCard({
     {
       header: "Actions",
       cell: () => (
-        <div className="space-x-2">
+        <div className="flex space-x-2">
           <Button variant="outline" size="sm">
             Approve
           </Button>
@@ -110,10 +101,10 @@ export function PendingApprovalsCard({
 
   const content = (
     <DashboardTable
-      data={visibleTransactions} // Only pass the 5 sorted transactions
+      data={visibleTransactions}
       columns={columns}
-      rowsPerPage={5} // Only show up to 5 rows
-      totalRows={pendingTransactions.length} // Pass the total number of pending transactions
+      rowsPerPage={5}
+      totalRows={pendingTransactions.length}
     />
   );
 

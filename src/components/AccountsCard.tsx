@@ -28,7 +28,7 @@ export function AccountsCard({ accounts }: AccountCardProps) {
     <DashboardTable
       data={accounts}
       columns={columns}
-      rowsPerPage={10}
+      rowsPerPage={5}
       totalRows={accounts.length}
     />
   );

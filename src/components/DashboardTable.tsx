@@ -9,7 +9,7 @@ import {
 
 interface Column<T> {
   header: string;
-  accessorKey: string;
+  accessorKey?: string;
   cell?: (item: T) => React.ReactNode;
 }
 
@@ -48,7 +48,9 @@ export function DashboardTable<T>({
                 <TableCell key={column.header}>
                   {column.cell
                     ? column.cell(item)
-                    : (item[column.accessorKey as keyof T] as React.ReactNode)}
+                    : column.accessorKey
+                    ? (item[column.accessorKey as keyof T] as React.ReactNode)
+                    : null}
                 </TableCell>
               ))}
             </TableRow>

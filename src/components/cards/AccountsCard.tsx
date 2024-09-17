@@ -1,6 +1,6 @@
 import { Account } from "@/data/types";
-import { DashboardCard } from "./DashboardCard";
-import { DashboardTable } from "./DashboardTable";
+import { DashboardCard } from "../dashboard/DashboardCard";
+import { DashboardTable } from "../dashboard/DashboardTable";
 
 interface AccountCardProps {
   accounts: Account[];

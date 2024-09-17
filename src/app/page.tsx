@@ -1,10 +1,10 @@
 import data from "@/data/data.json";
 import { Data } from "@/data/types";
-import { AccountsCard } from "@/components/AccountsCard";
-import { TransactionsCard } from "@/components/TransactionsCard";
-import { UsersCard } from "@/components/UsersCard";
-import { PendingApprovalsCard } from "@/components/PendingApprovalsCard";
-import { DashboardLayout } from "@/components/DashboardLayout";
+import { AccountsCard } from "@/components/cards/AccountsCard";
+import { TransactionsCard } from "@/components/cards/TransactionsCard";
+import { UsersCard } from "@/components/cards/UsersCard";
+import { PendingApprovalsCard } from "@/components/cards/PendingApprovalsCard";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 
 export default function Home() {
   const appData: Data = data;

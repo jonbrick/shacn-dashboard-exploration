@@ -1,7 +1,7 @@
 import { Transaction, Account, ThirdParty } from "@/data/types";
-import { DashboardCard } from "./DashboardCard";
-import { DashboardTable } from "./DashboardTable";
 import { Button } from "@/components/ui/button";
+import { DashboardCard } from "../dashboard/DashboardCard";
+import { DashboardTable } from "../dashboard/DashboardTable";
 
 interface PendingApprovalsCardProps {
   transactions: Transaction[];

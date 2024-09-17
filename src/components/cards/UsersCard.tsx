@@ -1,7 +1,7 @@
 import { User } from "@/data/types";
-import { DashboardCard } from "./DashboardCard";
-import { DashboardTable } from "./DashboardTable";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DashboardCard } from "../dashboard/DashboardCard";
+import { DashboardTable } from "../dashboard/DashboardTable";
 
 interface UsersCardProps {
   users: User[];
